@@ -1,0 +1,7 @@
+.header_list li {
+  @apply flex gap-1 items-center hover:text-red-600 duration-300 font-bold text-[13px];
+}
+
+.chevron_down {
+  @apply w-4 h-4 font-bold;
+}
