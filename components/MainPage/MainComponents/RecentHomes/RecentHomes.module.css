@@ -1,0 +1,3 @@
+.btn_group button {
+  @apply text-buttons_color text-[12px]  border border-buttons_color  py-[6px] px-2 focus:bg-buttons_color focus:text-white ml-3 duration-300;
+}

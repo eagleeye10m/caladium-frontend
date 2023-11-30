@@ -1,0 +1,15 @@
+.info {
+  @apply flex flex-col items-center gap-2;
+}
+
+.info img {
+  @apply rounded-full w-[100px] h-[100px];
+}
+
+.info h1 {
+  @apply font-bold;
+}
+
+.info p {
+  @apply text-sm text-gray-400 text-center;
+}

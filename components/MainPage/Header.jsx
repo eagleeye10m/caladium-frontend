@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { HeartIcon, UserIcon, SunIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import Classes from "@/components/Header.module.css";
+import Classes from "./Header.module.css";
 
 const Header = () => {
   return (
@@ -30,7 +30,7 @@ const Header = () => {
       </section>
 
       <section className="w-1/3 flex items-center justify-center mr-5">
-        <ul className={`${Classes.header_list} flex gap-5`}>
+        <ul className={`${Classes.header_list} flex gap-3`}>
           <li>
             <Link href="#">خانه</Link>
             <ChevronDownIcon className={Classes.chevron_down} />

@@ -16,5 +16,19 @@
   }
 }
 
+@font-face {
+  font-family: "DiplomatFont";
+  src: url("../public/assets/Fonts/Far_Diplomat/Far_Diplomat.ttf");
+}
+
 body {
+  font-family: "DiplomatFont";
+}
+
+.selection_btn {
+  @apply bg-white text-black text-[12px] font-bold rounded-[4px] py-[6px] px-2 focus:bg-buttons_color focus:text-white ml-3 duration-300;
+}
+
+.container_self {
+  @apply w-[73%] py-[50px];
 }

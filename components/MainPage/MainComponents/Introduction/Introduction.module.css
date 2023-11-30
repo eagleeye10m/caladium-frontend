@@ -1,6 +1,6 @@
 .introduction {
   position: relative;
-  background: url("../../../assets/pexels-vecislavas-popa-1571460.jpg");
+  background: url("../../../../public/assets/pexels-vecislavas-popa-1571460.jpg");
   background-position: center;
   background-size: cover;
 }
@@ -14,4 +14,8 @@
   left: 0;
   background: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the darkness */
   z-index: 1;
+}
+
+.social_networks svg {
+  @apply relative text-black w-8 h-8 p-2 rounded-full bg-white z-20 font-thin justify-center items-center  bg-gray-300 hover:bg-orange-500 duration-300;
 }
