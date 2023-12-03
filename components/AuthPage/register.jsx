@@ -1,93 +1,116 @@
 'use client'
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Register() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
+const Register = () => {
+  const [userData, setUserData] = useState({
+    username: '',
     email: '',
     password: '',
-    password_confirmation: '',
+    phone: '',
   });
 
+  const [csrfToken, setCsrfToken] = useState('');
+
+  useEffect(() => {
+    // Fetch the CSRF token from your Laravel backend
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`);
+        if (response.status === 204) {
+          setCsrfToken(getCookieValue('XSRF-TOKEN'));
+        }
+      } catch (error) {
+        // Handle token fetch error
+        console.error('Error fetching CSRF token:', error);
+      }
+    };
+    fetchCsrfToken();
+  }, []);
+
+  const getCookieValue = (name) => {
+    const match = document.cookie.match(new RegExp('(^ )' + name + '=([^;]+)'));
+    if (match) {
+      return match[2];
+    }
+    return '';
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
-        method: 'POST',
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, userData, {
         headers: {
+          'X-XSRF-TOKEN': csrfToken,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          formData,
-          _token: csrfToken,
-        }),
       });
-      const data = await res.json();
-      if (data.success) {
-        // Registration successful
-        console.log('User registered:', data);
+      if (response.status === 200) {
+        // Handle successful registration
+        console.log('User registered successfully');
       } else {
-        // Handle registration errors
-        console.error('Registration error', data.errors);
+        // Handle registration error
+        console.error('Failed to register user');
       }
     } catch (error) {
-      console.error('Network error', error);
+      // Handle request error
+      console.error('Error registering user:', error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Name"
-        required
-      />
-      <input
-        type="number"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="phone"
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-        required
-      />
-      <input
-        type="password"
-        name="password_confirmation"
-        value={formData.password_confirmation}
-        onChange={handleChange}
-        placeholder="Confirm Password"
-        required
-      />
+      <div>
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={userData.username}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="phone">Phone</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          value={userData.phone}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={userData.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={userData.password}
+          onChange={handleChange}
+        />
+      </div>
       <button type="submit">Register</button>
     </form>
   );
-}
+};
 
 export default Register;
