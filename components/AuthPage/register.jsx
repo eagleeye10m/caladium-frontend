@@ -13,15 +13,14 @@ const Register = () => {
   const [csrfToken, setCsrfToken] = useState('');
 
   useEffect(() => {
-    // Fetch the CSRF token from your Laravel backend
     const fetchCsrfToken = async () => {
       try {
+        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`);
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`);
         if (response.status === 204) {
           setCsrfToken(getCookieValue('XSRF-TOKEN'));
         }
       } catch (error) {
-        // Handle token fetch error
         console.error('Error fetching CSRF token:', error);
       }
     };
@@ -54,14 +53,11 @@ const Register = () => {
         },
       });
       if (response.status === 200) {
-        // Handle successful registration
         console.log('User registered successfully');
       } else {
-        // Handle registration error
         console.error('Failed to register user');
       }
     } catch (error) {
-      // Handle request error
       console.error('Error registering user:', error);
     }
   };
