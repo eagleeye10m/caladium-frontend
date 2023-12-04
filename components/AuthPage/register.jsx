@@ -1,38 +1,42 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+"use client";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Register = () => {
   const [userData, setUserData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    phone: '',
+    username: "",
+    email: "",
+    password: "",
+    phone: "",
   });
 
-  const [csrfToken, setCsrfToken] = useState('');
+  const [csrfToken, setCsrfToken] = useState("");
 
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
-        await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`);
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`);
+        await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+        );
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+        );
         if (response.status === 204) {
-          setCsrfToken(getCookieValue('XSRF-TOKEN'));
+          setCsrfToken(getCookieValue("XSRF-TOKEN"));
         }
       } catch (error) {
-        console.error('Error fetching CSRF token:', error);
+        console.error("Error fetching CSRF token:", error);
       }
     };
     fetchCsrfToken();
   }, []);
 
   const getCookieValue = (name) => {
-    const match = document.cookie.match(new RegExp('(^ )' + name + '=([^;]+)'));
+    const match = document.cookie.match(new RegExp("(^ )" + name + "=([^;]+)"));
     if (match) {
       return match[2];
     }
-    return '';
+    return "";
   };
 
   const handleChange = (e) => {
@@ -46,19 +50,23 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, userData, {
-        headers: {
-          'X-XSRF-TOKEN': csrfToken,
-          'Content-Type': 'application/json',
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/register`,
+        userData,
+        {
+          headers: {
+            "X-XSRF-TOKEN": csrfToken,
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
       if (response.status === 200) {
-        console.log('User registered successfully');
+        console.log("User registered successfully");
       } else {
-        console.error('Failed to register user');
+        console.error("Failed to register user");
       }
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.error("Error registering user:", error);
     }
   };
 

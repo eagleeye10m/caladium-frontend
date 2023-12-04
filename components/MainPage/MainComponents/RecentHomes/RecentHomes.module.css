@@ -1,3 +1,19 @@
 .btn_group button {
-  @apply text-buttons_color text-[12px]  border border-buttons_color  py-[6px] px-2 focus:bg-buttons_color focus:text-white ml-3 duration-300;
+  @apply text-buttons_color text-[12px]  border border-buttons_color  py-[6px] px-2 focus:bg-buttons_color focus:text-white duration-300;
+}
+
+.homeCard img {
+  @apply h-[200px] w-full;
+}
+
+.description span {
+  @apply text-sm font-bold;
+}
+
+.info svg {
+  @apply inline text-buttons_color w-5 h-5 ml-1;
+}
+
+.info span {
+  @apply flex items-center text-gray-500 text-[12px] ml-3;
 }
