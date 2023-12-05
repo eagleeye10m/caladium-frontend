@@ -1,120 +1,85 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Register = () => {
-  const [userData, setUserData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
+export default function Register() {
+  const [username, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [csrfToken, setCsrfToken] = useState("");
-
-  useEffect(() => {
-    const fetchCsrfToken = async () => {
-      try {
-        await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-        );
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-        );
-        if (response.status === 204) {
-          setCsrfToken(getCookieValue("XSRF-TOKEN"));
-        }
-      } catch (error) {
-        console.error("Error fetching CSRF token:", error);
-      }
-    };
-    fetchCsrfToken();
-  }, []);
-
-  const getCookieValue = (name) => {
-    const match = document.cookie.match(new RegExp("(^ )" + name + "=([^;]+)"));
-    if (match) {
-      return match[2];
-    }
-    return "";
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  async function registerUser(e) {
     e.preventDefault();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/register`,
-        userData,
         {
-          headers: {
-            "X-XSRF-TOKEN": csrfToken,
-            "Content-Type": "application/json",
-          },
+          username,
+          phone,
+          email,
+          password,
         },
+        config,
       );
-      if (response.status === 200) {
-        console.log("User registered successfully");
-      } else {
-        console.error("Failed to register user");
-      }
+      console.log(data);
+      alert("Registration success");
+      // You might want to clear form or do some redirection here
     } catch (error) {
-      console.error("Error registering user:", error);
+      console.log(error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        alert("Registration failed: " + error.response.data.message);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+      }
     }
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={userData.username}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="phone">Phone</label>
-        <input
-          type="text"
-          id="phone"
-          name="phone"
-          value={userData.phone}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={userData.password}
-          onChange={handleChange}
-        />
-      </div>
+    <form onSubmit={registerUser}>
+      <input
+        type="text"
+        placeholder="Name"
+        value={username}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <input
+        type="text"
+        placeholder="Phone Number"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)} // add phone input
+      />
+
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
       <button type="submit">Register</button>
     </form>
   );
-};
-
-export default Register;
+}
