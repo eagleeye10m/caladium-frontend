@@ -1,0 +1,23 @@
+.cards {
+  @apply flex p-2 duration-300;
+}
+
+.cards:hover {
+  @apply px-4 py-5 border border-gray-300 bg-gray-200 bg-opacity-25;
+}
+
+.cards svg {
+  @apply w-[12%] h-[17%] bg-buttons_color text-white p-3;
+}
+
+.cards div {
+  @apply mr-2 w-[85%];
+}
+
+.cards h1 {
+  @apply text-[16px] font-extrabold;
+}
+
+.cards p {
+  @apply text-[13px] text-gray-400;
+}

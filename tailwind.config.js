@@ -17,8 +17,10 @@ module.exports = {
       },
       boxShadow: {
         lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 1px 6px 2px rgb(0 0 0 / 0.1)",
+        md: "0 10px 10px -3px rgb(0 0 0 / 0), 0 -3px 21px -2px rgb(0 0 0 / 0.1)",
       },
     },
   },
   plugins: [],
+  darkMode: "class",
 };

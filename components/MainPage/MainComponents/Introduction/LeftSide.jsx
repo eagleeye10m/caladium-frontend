@@ -1,21 +1,16 @@
-"use client";
 import React from "react";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import User1 from "@/public/assets/UsersImage/User1.jpg";
 import User2 from "@/public/assets/UsersImage/User2.avif";
 import User3 from "@/public/assets/UsersImage/User3.webp";
+import { fetchData } from "../../HomeDataFetching/HomeData";
 
-function LeftSide(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const locations = ["تهران", "تبریز", "ارومیه", "خوی"];
+async function LeftSide(props) {
+  const { states } = await fetchData();
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
   return (
-    <section className=" w-[40%]">
+    <section className=" w-[40%] h-auto">
       <form className="relative border-4 border-white p-10 bg-gray-300 bg-opacity-50 rounded-[4px]">
         <button type="button" className="selection_btn">
           برای اجاره
@@ -33,15 +28,11 @@ function LeftSide(props) {
         <select
           name="select_location"
           label="Age"
-          onClick={toggleDropdown}
-          className={`bg-white px-3 py-2 w-full rounded-[4px] mt-3 border-2 border-gray-300 focus:outline-none focus:ring focus:border-blue-300 overflow-hidden transition-all ease-in-out duration-300`}
+          className="relative bg-white px-3 py-[7px] w-full rounded-[4px] z-50 mt-3 border-2 border-gray-300 focus:outline-none focus:ring focus:border-blue-300 overflow-y-auto max-h:calc(100vh - 300px)"
         >
-          {locations.map((location) => (
-            <option
-              key={locations.indexOf(location)}
-              value={locations.indexOf(location)}
-            >
-              {location}
+          {states.map((location) => (
+            <option key={location.id} value={location.id}>
+              {location.title}
             </option>
           ))}
         </select>
@@ -53,7 +44,7 @@ function LeftSide(props) {
           جستجو
         </button>
 
-        <div className="images  flex  mt-3 ">
+        <div className="images flex mt-3 ">
           <Image
             className="rounded-full border-2 border-white h-[40px] w-[40px] z-10"
             src={User1}

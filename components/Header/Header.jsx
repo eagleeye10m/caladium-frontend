@@ -1,12 +1,12 @@
-"use client";
 import {
   CakeIcon,
   MagnifyingGlassIcon,
   ChevronDownIcon,
 } from "@heroicons/react/20/solid";
-import { HeartIcon, UserIcon, SunIcon } from "@heroicons/react/24/outline";
+import { HeartIcon, UserIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Classes from "./Header.module.css";
+import { ThemeButton } from "./ThemeButton";
 
 const Header = () => {
   return (
@@ -63,7 +63,7 @@ const Header = () => {
         <button className="px-6 py-2 bg-buttons_color text-white text-[12px]">
           افزودن فهرست
         </button>
-        <SunIcon className="w-8 h-8 rounded-full shadow-lg p-1 cursor-pointer" />
+        <ThemeButton />
       </section>
     </main>
   );

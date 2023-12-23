@@ -1,0 +1,11 @@
+.contactUs span {
+  @apply flex  text-sm text-gray-500;
+}
+
+.contactUs span svg {
+  @apply text-buttons_color w-4 h-4 ml-[7px];
+}
+
+.usefull_links svg {
+  @apply inline-block text-buttons_color w-3 h-3 ml-1;
+}

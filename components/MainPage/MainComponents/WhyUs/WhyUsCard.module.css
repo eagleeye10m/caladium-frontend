@@ -1,0 +1,7 @@
+.info svg {
+  @apply inline text-buttons_color w-3 h-3 ml-1;
+}
+
+.info span {
+  @apply flex items-center text-gray-500 text-[12px] ml-3;
+}
