@@ -5,7 +5,7 @@ import { fetchData } from "../../HomeDataFetching/HomeData";
 import { revalidateTag } from "next/cache";
 
 async function RecentHomes() {
-  const homesData = await fetchData();
+  //const homesData = await fetchData();
   revalidateTag("product"); //the product tag is in the files/[id]/page.jsx
 
   return (

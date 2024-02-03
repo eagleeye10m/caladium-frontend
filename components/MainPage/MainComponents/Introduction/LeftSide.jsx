@@ -7,7 +7,7 @@ import User3 from "@/public/assets/UsersImage/User3.webp";
 import { fetchData } from "../../HomeDataFetching/HomeData";
 
 async function LeftSide(props) {
-  const { states } = await fetchData();
+  // const { states } = await fetchData();
 
   return (
     <section className=" w-[40%] h-auto">
@@ -30,11 +30,15 @@ async function LeftSide(props) {
           label="Age"
           className="relative bg-white px-3 py-[7px] w-full rounded-[4px] z-50 mt-3 border-2 border-gray-300 focus:outline-none focus:ring focus:border-blue-300 overflow-y-auto max-h:calc(100vh - 300px)"
         >
-          {states.map((location) => (
+          {/* {states.map((location) => (
             <option key={location.id} value={location.id}>
               {location.title}
             </option>
-          ))}
+          ))} */}
+          <option value="1">آذربایجان غربی</option>
+          <option value="2">آذربایجان شرقی</option>
+          <option value="3">اردبیل</option>
+          <option value="4">تهران</option>
         </select>
 
         <button
