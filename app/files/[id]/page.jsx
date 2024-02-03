@@ -5,6 +5,9 @@ const fetchData = async (id) => {
     headers: {
       "Content-Type": "application/json",
     },
+    next: {
+      tags: ["product"],
+    },
   });
   const data = await res.json();
 
@@ -25,5 +28,7 @@ async function home({ params: { id } }) {
   );
 }
 
-//export async function generateStaticParams() {}
+export async function generateStaticParams() {
+  return [{ id: "1" }];
+}
 export default home;

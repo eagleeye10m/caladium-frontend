@@ -1,5 +1,5 @@
 // import { Inter } from "next/font/google";
-
+//import "../layout";
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -8,9 +8,5 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en" dir="rtl">
-      <body>{children}</body>
-    </html>
-  );
+  return <div>{children}</div>;
 }

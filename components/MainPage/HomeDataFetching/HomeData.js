@@ -2,7 +2,7 @@ export const fetchData = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
       next: {
-        revalidate: 60,
+        revalidate: 10,
       },
     });
     return await res.json();

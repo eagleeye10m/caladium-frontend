@@ -6,6 +6,22 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      // tv: { min: "1200px" },
+      // pc: { min: "992px", max: "1200px" },
+      // laptop: { min: "768px", max: "992px" },
+      // tablet: { max: "768px" },
+      // iphone: { min: "480px" },
+      // galaxy: { min: "360px" },
+      // ipad: { min: "360px" },
+
+      xl: { min: "1279px" },
+      xl_two: { max: "1279px" },
+      lg: { min: "991px" },
+      lg_two: { max: "991px" },
+      md: { min: "767px" },
+      md_two: { max: "767px" },
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
